@@ -1,39 +1,49 @@
-# Rcrm
+# RCRM
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rcrm`. To experiment with that code, run `bin/console` for an interactive prompt.
+This a client library to help interacting with the RCRM API.
 
-TODO: Delete this and the text above, and describe your gem
 
-## Installation
+```
+require 'rcrm'
 
-Add this line to your application's Gemfile:
+conn = RCRM::Connection.new(url: RCRM_URL,
+                            integrator_key: RCRM_INTEGRATOR_KEY,
+                            api_key: RCRM_API_KEY)
 
-```ruby
-gem 'rcrm'
+applicants_filter = RCRM::ApplicantsFilter.new.email_address_eq('dave@lister.fj')
+applicant_return_fields = RCRM::Applicant.new(fields: [:applicantId, :applicantName])
+applicants_query = RCRM::Applicants.new(fields: applicant_return_fields).filter(applicants_filter)
+
+result = conn.query(applicants_query)
+result.status == 200
+result.body['errors'].nil?
+result.body['data']
 ```
 
-And then execute:
+```
+# find the sector ID
+result = conn.query RCRM::Sectors.new
+sectorIdCsv = result.body['data']['sectors']['sector'].map { |item| item['sectorId'] }.join(',')
 
-    $ bundle
+# prepare the request
+applicant_details = RCRM::InsertApplicantInput.new(applicantName: 'Kryton',
+  applicantSurname: '4000',
+  fileAs: 'Kryten',
+  sectorIdCsv: sectorIdCsv)
+insert_applicant_mutation = RCRM::InsertApplicant.new(applicant_details, fields: [:applicantId, :fileAs])
 
-Or install it yourself as:
+result = conn.mutation(insert_applicant_mutation)
+```
 
-    $ gem install rcrm
+```
+# find the applicant's ID
+applicants_filter = RCRM::ApplicantsFilter.new.name_in('Kryton').surname_in('4000')
+result = conn.query(RCRM::Applicants.new.filter(applicants_filter))
+applicant_id = result.body['data']['applicants']['applicant'].first['applicantId']
 
-## Usage
+# prepare the request
+applicant_details = RCRM::UpdateApplicantInput.new(applicantId: applicant_id, applicantSurname: 'Series 4000')
+update_applicant_mutation = RCRM::UpdateApplicant.new(applicant_details, fields: [:applicantId, :applicantSurname])
 
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rcrm.
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+result = conn.mutation(update_applicant_mutation)
+```

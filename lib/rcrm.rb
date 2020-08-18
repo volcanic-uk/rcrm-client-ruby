@@ -1,5 +1,6 @@
-require "rcrm/version"
-
+# forward module declaration
 module RCRM
-  # Your code goes here...
 end
+
+require 'rcrm/version'
+require 'rcrm/connection'
