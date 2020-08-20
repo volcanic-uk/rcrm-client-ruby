@@ -23,13 +23,25 @@ module RCRM
       Arguments.new
     end
 
-    def type_name
-      raise "#{self.class.name} does not provide an implementation of #type_name"
-    end
-
     def to_graphql
       processed_fields = fields.map { |fld| fld.respond_to?(:to_graphql) ? fld.to_graphql : fld }
       " #{type_name} #{arguments.to_graphql} { #{processed_fields.join(', ')} } "
+    end
+
+    def type_name
+      self.class.type_name
+    end
+
+    class << self
+      attr_writer :type_name
+
+      def type_name
+        @type_name ||= begin
+          nme = self.name.split('::').last
+          nme[0] = nme[0].downcase
+          nme
+        end
+      end
     end
   end
 end

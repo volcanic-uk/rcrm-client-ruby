@@ -7,7 +7,6 @@ module RCRM
     end
 
     def initialize(**data)
-      @data = {}
       add(data)
     end
 
@@ -28,6 +27,7 @@ module RCRM
 
       raise "#{invalid.join(', ')} are not valid fields" unless invalid.empty?
 
+      @data ||= {}
       pairs.each { |key, value| data[key] = value }
       self
     end

@@ -1,11 +1,7 @@
 module RCRM
-  class Sectors < Selection
+  class Sectors < Collection
     def default_fields
       [Sector.new]
-    end
-
-    def type_name
-      :sectors
     end
   end
 end

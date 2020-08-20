@@ -1,5 +1,5 @@
 module RCRM
-  module Collection
+  class Collection < Selection
     def filter(value)
       arguments.filter(value)
       self
