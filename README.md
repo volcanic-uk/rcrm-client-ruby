@@ -84,3 +84,41 @@ update_applicant_mutation = RCRM::UpdateApplicant.new(applicant_details, fields:
 
 result = conn.mutation(update_applicant_mutation)
 ```
+
+### Handling files
+
+Files are transferred as base64 encoded. It is important that `strict` encoding is used, rather than the
+default in ruby.
+
+As an example, this is how one can work with a CV:
+```ruby
+require 'base64'
+
+# First, read in the file and convert the body to base64
+
+# path = the path of the file on the file system
+file = Pathname.new(path)
+encoded = Base64.strict_encode64(file.read)
+
+# Next, build the input object
+# We assume that we gained the applicant_id earlier
+input = RCRM::InsertCVInput.new(applicantId: applicant_id,
+  description: file.basename.to_s,
+  fileExtension: file.extname,
+  binaryContent: encoded)
+
+# Finally, send the request to upload the CV to the API
+# conn is the connection to the API that we gained earlier
+result = conn.mutation(RCRM::InsertCV.new(input))
+
+
+# From the result we can identify and confirm the CV id created
+cv_id = result.body['data']['insertCv']['cVId']
+
+result = conn.query(RCRM::CVs.new(fields: RCRM::CV.new(fields: [:cVId, :binaryContent])).filter(RCRM::CVsFilter.new.id_in(cv_id)))
+
+encoded_result = result.body['data']['cvs']['cv'][0]['binaryContent']
+
+downloaded = Tempfile.new
+downloaded.write Base64.strict_decode64(encoded_result)
+```
