@@ -12,6 +12,7 @@ module RCRM
       sourceId
       applicantName
       applicantSurname
+      jobTitle
       createdUserId
       createdUserName
       updatedUserId
