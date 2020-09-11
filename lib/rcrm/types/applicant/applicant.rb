@@ -48,7 +48,7 @@ module RCRM
     )
 
     def default_fields
-      %i(applicantId applicantName applicantSurname fileAs)
+      %i(applicantId applicantName applicantSurname fileAs primaryEmailAddress)
     end
 
     def type_name
