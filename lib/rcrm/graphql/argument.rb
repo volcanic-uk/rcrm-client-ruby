@@ -40,7 +40,7 @@ module RCRM
         "[ #{node.map { |nd| serialize(nd) }.join(', ')} ]"
       when Time
         "\"#{node.iso8601}\""
-      when String
+      when String, Symbol
         "\"#{node}\""
       when Numeric
         node
