@@ -18,7 +18,6 @@ module RCRM
       PHONE = [MOBILE, GENERIC_PHONE, DAY_PHONE, EVENING_PHONE, HOME_PHONE, WORK_PHONE]
     end
 
-    self.type_name = :communicationType
 
     def default_fields
       %i(communicationTypeId description systemCode)
