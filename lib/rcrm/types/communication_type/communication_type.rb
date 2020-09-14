@@ -18,9 +18,18 @@ module RCRM
       PHONE = [MOBILE, GENERIC_PHONE, DAY_PHONE, EVENING_PHONE, HOME_PHONE, WORK_PHONE]
     end
 
-
     def default_fields
       %i(communicationTypeId description systemCode)
+    end
+
+    class << self
+      def email?(value)
+        SystemCode::EMAIL.include? value.to_sym
+      end
+
+      def phone?(value)
+        SystemCode::PHONE.include? value.to_sym
+      end
     end
   end
 end
