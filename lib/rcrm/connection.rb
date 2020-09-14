@@ -43,7 +43,7 @@ module RCRM
         conn.use RCRM::Middleware::Authentication, api_key: api_key, integrator_key: integrator_key
         conn.use RCRM::Middleware::UserAgent
 
-        conn.response :json, content_type: /\bjson$/
+        conn.response :json, content_type: /\bjson$/, :parser_options => { :object_class => OpenStruct }
       end
     end
 
