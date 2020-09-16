@@ -13,5 +13,9 @@ module RCRM
     def id_in(*ids)
       where phoneId_in: ids.flatten.compact
     end
+
+    def num_equal(num)
+      where num: num
+    end
   end
 end
