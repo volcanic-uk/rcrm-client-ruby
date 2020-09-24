@@ -1,3 +1,5 @@
+require_relative 'cv'
+
 module RCRM
   class InsertCV < CV
     self.type_name = 'insertCv'
