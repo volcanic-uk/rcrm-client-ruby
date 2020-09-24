@@ -1,6 +1,6 @@
 module RCRM
   class Applicant < Selection
-    valid_fields = %i(
+    self.valid_fields = %i(
       addresses
       applicantActions
       applicantId

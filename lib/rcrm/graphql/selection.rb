@@ -1,5 +1,9 @@
 module RCRM
   class Selection
+    class << self
+      attr_accessor :valid_fields
+    end
+    
     attr_reader :fields, :arguments
 
     def initialize(fields: nil, arguments: nil)
