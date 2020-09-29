@@ -8,7 +8,7 @@ module RCRM
       if @args.empty?
         ''
       else
-        "( #{@args.map { |key, value| "#{key}: #{value.to_graphql}" }.join(', ')} )"
+        "( #{@args.map { |key, value| "#{key}: #{serialize(value)}" }.join(', ')} )"
       end
     end
 
@@ -30,13 +30,15 @@ module RCRM
     protected
 
     def serialize(node)
+      return node.to_graphql if node.respond_to?(:to_graphql)
+      
       case node
       when Hash
         "{ #{node.map { |key, value| "#{key}: #{serialize(value)}" }.join(', ')} }"
       when Array
         "[ #{node.map { |nd| serialize(nd) }.join(', ')} ]"
       when Time
-        node.iso8601
+        "\"#{node.iso8601}\""
       when String
         "\"#{node}\""
       when Numeric
