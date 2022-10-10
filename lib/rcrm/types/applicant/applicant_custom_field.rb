@@ -1,6 +1,10 @@
 module RCRM
   class ApplicantCustomField < Selection
-    self.valid_fields = get_remote_applicant_custom_fields
+    self.valid_fields = %i(
+      test
+      one
+      two
+    )
 
     def get_remote_applicant_custom_fields
       query = '{__type(name: "applicantCustomField"){fields {name}}}'
