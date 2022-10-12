@@ -1,5 +1,9 @@
 module RCRM
   class ApplicantCustomField < Selection
-    self.valid_fields = []
+    def valid_fields(conn)
+      query = '{__type(name: "applicantCustomField"){fields {name}}}'
+      fields = conn.request(query).body.data.__type.fields
+      fields.map(&:name)
+    end
   end 
 end
