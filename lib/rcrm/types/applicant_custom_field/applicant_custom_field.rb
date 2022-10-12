@@ -1,9 +1,8 @@
 module RCRM
   class ApplicantCustomField < Selection
     self.valid_fields = %i(
-      test
-      one
-      two
+      applicantID
+      passport
     )
 
     def get_remote_applicant_custom_fields
