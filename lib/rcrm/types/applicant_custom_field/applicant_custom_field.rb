@@ -3,7 +3,7 @@ module RCRM
     def valid_fields(conn)
       query = '{__type(name: "applicantCustomField"){fields {name}}}'
       fields = conn.request(query).body.data.__type.fields
-      fields.map(&:name)
+      fields.map(&:name).map(&:to_sym)
     end
   end 
 end
