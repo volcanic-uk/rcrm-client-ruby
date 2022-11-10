@@ -6,24 +6,35 @@ module RCRM
       statusId
       priorityValueId
       jobTitle
+      desiredJobTitle
       minBasic
       currentBasic
       minPackage
       currentPackage
+      rateUnit
       sourceId
+      locationId
+      availabilityId
       applicantName
       applicantSurname
-      jobTitle
+      assessmentDate
+      assessedBy
+      primaryEmailAddressPhoneId
       createdUserId
       createdUserName
       updatedUserId
       updatedUserName
+      dob
       genderValueId
       maritalStatusValueId
+      nationalityId
+      salutation
       titleValueId
       sectorIdCsv
       fileAs
       flagText
+      employmentTypeIdCsv
+      primaryPhoneId
     )
   end
 end

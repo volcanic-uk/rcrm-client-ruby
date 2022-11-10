@@ -6,7 +6,12 @@ module RCRM
       applicantId
       applicantName
       applicantSurname
+      assessedBy
+      assessedByValue
+      assessmentDate
       attributes
+      availability
+      availabilityId
       availableDate
       consultantGroups
       consultantUsers
@@ -14,7 +19,12 @@ module RCRM
       createdUserId
       createdUserName
       currenBasic
+      currentPackage
       cvs
+      desiredJobTitle
+      dob
+      employmentTypeDescription
+      employmentTypeIdCsv
       fileAs
       flagText
       formUrl
@@ -23,21 +33,33 @@ module RCRM
       genderValueId
       imageUrl
       jobTitle
+      location
       locationDescription
+      locationId
+      mailshotOptions
       maritalStatus
       maritalStatusValueId
       minBasic
       minPackage
+      nationality
+      nationalityId
       notebookItems
       personId
       phones
       primaryEmailAddress
+      primaryEmailAddressPhoneId
+      primaryPhoneId
+      primaryPhoneNo
       priority
       priorityValueId
+      rateUnit
+      rateUnitDetails
+      salutation
       sectorIdCsv
       source
       sourceId
       status
+      statusDate
       statusId
       title
       titleValueId
