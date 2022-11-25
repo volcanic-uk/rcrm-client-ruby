@@ -4,6 +4,9 @@ module RCRM
       applicantId
       clientId
       company
+      createdOn
+      createdUser
+      createdUserId
       cvId
       employmentTypeSystemCode
       formUrl
@@ -18,6 +21,9 @@ module RCRM
       reviewListStatusId
       source
       sourceId
+      statusDate
+      updatedUser
+      updatedUserId
     )
 
     def default_fields

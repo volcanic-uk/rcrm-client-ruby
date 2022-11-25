@@ -3,8 +3,9 @@ module RCRM
     self.valid_fields = %i(
       applicantId
       binaryContent
+      expiryDate
       fileExtension
-      templateID
+      startDate
       templateName
       templateTypeId
     )

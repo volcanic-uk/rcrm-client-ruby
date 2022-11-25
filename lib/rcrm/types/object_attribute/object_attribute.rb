@@ -7,6 +7,8 @@ module RCRM
       attributeMaster
       attributeMasterId
       clients
+      createdOn
+      createdUserId
       description
       effectiveDate
       expiryDate
@@ -15,6 +17,7 @@ module RCRM
       notes
       objectAttributeId
       objectId
+      updatedOn
     )
 
     def default_fields
