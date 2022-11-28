@@ -1,5 +1,5 @@
 module RCRM
-  class Applicant < Selection
+  class Address < Selection
     self.valid_fields = %i(
       addressId
       addressType
