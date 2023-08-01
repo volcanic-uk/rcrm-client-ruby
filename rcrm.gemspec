@@ -5,8 +5,8 @@ require "rcrm/version"
 Gem::Specification.new do |spec|
   spec.name          = "rcrm"
   spec.version       = RCRM::VERSION
-  spec.authors       = ["Volcanic Development"]
-  spec.email         = ["volcanic.development@theaccessgroup.com"]
+  spec.authors       = ['Volcanic UK']
+  spec.email         = ['']
 
   spec.summary       = %q{A client library to help integrate with Access Recruitment CRM}
   spec.description   = spec.summary
