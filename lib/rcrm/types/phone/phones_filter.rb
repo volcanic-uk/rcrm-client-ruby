@@ -17,5 +17,9 @@ module RCRM
     def num_equal(num)
       where num: num
     end
+
+    def communication_type_id_eql(id)
+      where communicationTypeId: id
+    end
   end
 end
