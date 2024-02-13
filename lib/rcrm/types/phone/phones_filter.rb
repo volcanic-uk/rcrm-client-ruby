@@ -6,6 +6,10 @@ module RCRM
       where objectId_in: ids.flatten.compact
     end
 
+    def applicant_id_eql(id)
+      where objectId: id
+    end
+
     def appicant_id_in(ids)
       where objectId_in: ids.flatten.compact
     end
