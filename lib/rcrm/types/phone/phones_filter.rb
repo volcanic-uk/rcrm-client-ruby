@@ -3,15 +3,15 @@ require 'time'
 module RCRM
   class PhonesFilter < Filter
     def object_id_in(ids)
-      where objectId_in: ids.flatten.compact
+      where objectID_in: ids.flatten.compact
     end
 
     def applicant_id_eql(id)
-      where objectId: id
+      where objectID: id
     end
 
     def appicant_id_in(ids)
-      where objectId_in: ids.flatten.compact
+      where objectID_in: ids.flatten.compact
     end
 
     def id_in(*ids)
