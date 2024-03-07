@@ -8,7 +8,7 @@ module RCRM
     def available_phones(conn)
       query = '{communicationTypes{communicationType{description communicationTypeId}}}'
       fields = conn.request(query).body.data.communicationTypes.communicationType
-      fields.map { |field| ["Phone(#{field.description}", field.communicationTypeId.to_s] }
+      fields.map { |field| ["Phone(#{field.description})", field.communicationTypeId.to_s] }
     end
   end
 end
