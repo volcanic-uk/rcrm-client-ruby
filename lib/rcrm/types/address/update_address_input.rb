@@ -1,6 +1,6 @@
 module RCRM
   class UpdateAddressInput < Input
-    valid_fields = %i(
+    self.valid_fields = %i(
       addressId
       objectId
       addressTypeId
