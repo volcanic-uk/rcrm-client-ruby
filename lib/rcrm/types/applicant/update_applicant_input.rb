@@ -1,6 +1,6 @@
 module RCRM
   class UpdateApplicantInput < Input
-    valid_fields = %i(
+    self.valid_fields = %i(
       applicantId
       availableDate
       statusId

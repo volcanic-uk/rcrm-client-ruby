@@ -1,6 +1,6 @@
 module RCRM
   class InsertAddressInput < Input
-    valid_fields = %i(
+    self.valid_fields = %i(
       objectId
       addressTypeId
       building
