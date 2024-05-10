@@ -18,7 +18,7 @@ module RCRM
       createdOn
       createdUserId
       createdUserName
-      currenBasic
+      currentBasic
       currentPackage
       cvs
       desiredJobTitle
