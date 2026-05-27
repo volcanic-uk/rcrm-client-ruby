@@ -1,5 +1,6 @@
 require 'faraday'
 require 'json'
+require 'ostruct'
 require_relative 'graphql'
 require_relative 'types'
 
