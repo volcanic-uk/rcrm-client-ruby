@@ -62,4 +62,79 @@ RSpec.describe RCRM::Connection do
       stubs.verify_stubbed_calls
     end
   end
+
+  describe "#request" do
+    let(:base_url) { "https://api.example.com/graphql" }
+
+    def build_connection_with_stubs(stubs)
+      connection = RCRM::Connection.new(
+        url: base_url,
+        integrator_key: "test-integrator",
+        api_key: "test-api-key"
+      )
+
+      test_connection = Faraday.new(url: base_url) do |faraday|
+        faraday.request :json
+        faraday.response :json, content_type: /\bjson$/, parser_options: { object_class: OpenStruct }
+        faraday.adapter :test, stubs
+      end
+
+      allow(connection).to receive(:connection).and_return(test_connection)
+      connection
+    end
+
+    it "sends the request to the configured host and path, not an empty host on port 80" do
+      requested_url = nil
+      stubs = Faraday::Adapter::Test::Stubs.new do |stub|
+        stub.post("/graphql") do |env|
+          requested_url = env.url
+          [200, { "Content-Type" => "application/json" }, '{"data":{}}']
+        end
+      end
+
+      connection = build_connection_with_stubs(stubs)
+      connection.request("query { id }")
+
+      expect(requested_url.host).to eq("api.example.com")
+      expect(requested_url.port).to eq(443)
+      expect(requested_url.path).to eq("/graphql")
+      stubs.verify_stubbed_calls
+    end
+
+    it "sends #query through the configured host" do
+      requested_url = nil
+      stubs = Faraday::Adapter::Test::Stubs.new do |stub|
+        stub.post("/graphql") do |env|
+          requested_url = env.url
+          [200, { "Content-Type" => "application/json" }, '{"data":{}}']
+        end
+      end
+
+      connection = build_connection_with_stubs(stubs)
+      selection = RCRM::Selection.new(fields: [:id])
+      connection.query(selection)
+
+      expect(requested_url.host).to eq("api.example.com")
+      expect(requested_url.path).to eq("/graphql")
+      stubs.verify_stubbed_calls
+    end
+
+    it "sends #mutation through the configured host" do
+      requested_url = nil
+      stubs = Faraday::Adapter::Test::Stubs.new do |stub|
+        stub.post("/graphql") do |env|
+          requested_url = env.url
+          [200, { "Content-Type" => "application/json" }, '{"data":{}}']
+        end
+      end
+
+      connection = build_connection_with_stubs(stubs)
+      selection = RCRM::Selection.new(fields: [:id])
+      connection.mutation(selection)
+
+      expect(requested_url.host).to eq("api.example.com")
+      expect(requested_url.path).to eq("/graphql")
+      stubs.verify_stubbed_calls
+    end
+  end
 end

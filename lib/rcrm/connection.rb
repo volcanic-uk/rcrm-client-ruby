@@ -72,7 +72,7 @@ module RCRM
         variables: variables,
         query: value
       }.to_json
-      connection.post nil, body
+      connection.post '', body
     end
   end
 end
